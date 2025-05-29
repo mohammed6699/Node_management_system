@@ -16,3 +16,4 @@ const VerifyUser = (req, res, next) => {
         res.satatus(402).json({status: HTTpStatus.ERROR, data:{title: "Unothorized Token"}})
     }
 }
+module.exports = VerifyUser;
