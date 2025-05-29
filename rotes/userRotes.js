@@ -11,3 +11,4 @@ router.route('/login')
 // register user (add new user)
 router.route('/register')
             .post(userControllers.registerUser)
+module.exports = router;
