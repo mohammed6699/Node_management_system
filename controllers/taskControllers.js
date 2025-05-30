@@ -10,6 +10,7 @@ const getAllTAsk = async (req, res) => {
     const allTasks = await TaskModel.find().limit(limit).skip(end);
     res.status(201).json({status: HTTPSTATUS.SUCCESS, data: {allTasks}});
 }
+
 // add task
 const addTask = async (req, res) => {
     const addTask = new TaskModel(req.body);
