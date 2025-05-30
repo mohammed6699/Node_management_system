@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const HTTPSTATUS = require('../utils/httpStatus');
 const TaskModel = require('../models/taskModel');
 // get all tasks
