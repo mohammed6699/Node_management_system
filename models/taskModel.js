@@ -12,7 +12,7 @@ const taskModel = new mongoose.Schema({
     },
     Due_Date:{
         type: Date,
-        date: Date
+        required: true
     },
     periority: {
         type: String,
