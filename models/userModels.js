@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
-const bcrypt = require('bcryptjs')
-const UserRole = require('../utils/UeerRole')
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const UserRole = require('../utils/UeerRole');
+
 const UserModel = new mongoose.Schema(
     {
         UserName: {
