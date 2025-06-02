@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const Periority = require('../utils/priority');
-const progress = require('../utils/progress');
+import { Schema, model } from 'mongoose';
+import { HIGH, MEDIUM, LOW } from '../utils/priority';
+import { COMPLETED, INPROGRESS, PENDDING } from '../utils/progress';
 
-const taskModel = new mongoose.Schema({
+const taskModel = new Schema({
     Title:{
         type: String,
         reuired: true,
@@ -16,16 +16,21 @@ const taskModel = new mongoose.Schema({
     },
     periority: {
         type: String,
-        enum: [Periority.HIGH, Periority.MEDIUM, Periority.LOW],
-        default: Periority.MEDIUM
+        enum: [HIGH, MEDIUM, LOW],
+        default: MEDIUM
     },
     progress: {
         type: String,
-        enum: [progress.COMPLETED, progress.INPROGRESS, progress.PENDDING],
-        default: progress.COMPLETED
+        enum: [COMPLETED, INPROGRESS, PENDDING],
+        default: COMPLETED
     },
     category: {
         type:String
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 });
-module.exports = mongoose.model('Task', taskModel);
+export default model('Task', taskModel);

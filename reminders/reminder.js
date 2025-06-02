@@ -1,6 +1,6 @@
 // fiter un finished , pendding tasks
-const taskModel = require('../models/taskModel')
-const corn = require('node-cron')
-const remiderTasks = corn.schedule("0 9 * * *", async() => {
+import taskModel from '../models/taskModel'
+import { schedule } from 'node-cron'
+const remiderTasks = schedule("0 9 * * *", async() => {
     
 })

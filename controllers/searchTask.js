@@ -1,42 +1,42 @@
-const HTTPSTATUS = require('../utils/httpStatus');
-const TaskModel = require('../models/taskModel');
+import { FAIL, SUCCESS, ERROR } from '../utils/httpStatus';
+import { findOne } from '../models/taskModel';
 // search task by category
 const getTaskbyCategory = async(req, res) => {
     const {category} = req.params;
-    const getTask = await TaskModel.findOne({category});
+    const getTask = await findOne({category});
     if(!getTask){
-        return res.status(404).json({status: HTTPSTATUS.FAIL, data: {title: "Can;t find this task"}})
+        return res.status(404).json({status: FAIL, data: {title: "Can;t find this task"}})
     }
-    res.status(202).json({status: HTTPSTATUS.SUCCESS, data: {getTask}})
+    res.status(202).json({status: SUCCESS, data: {getTask}})
     if (error){
-        return res.status(500).json({status: HTTPSTATUS.ERROR, data: {thistl: error.message}})
+        return res.status(500).json({status: ERROR, data: {thistl: error.message}})
     }
 }
 // search task title
 const getTaskByTitle = async (req, res) => {
     const {title} = req.params;
-    const getTask = await TaskModel.findOne({title});
+    const getTask = await findOne({title});
     if(!getTask){
-       return res.status(404).json({status: HTTPSTATUS.FAIL, data: {title: "This task Can't be found"}})
+       return res.status(404).json({status: FAIL, data: {title: "This task Can't be found"}})
     }
-    res.status(201).json({status: HTTPSTATUS.SUCCESS, data:{getTask}})
+    res.status(201).json({status: SUCCESS, data:{getTask}})
     if(error){
-        return res.status(500).json({status: HTTPSTATUS.ERROR, data: {thistl: error.message}})
+        return res.status(500).json({status: ERROR, data: {thistl: error.message}})
     }
 }
 // description
 const getTaskByDescription = async (req, res) => {
     const {description} = req.params
-    const getTask = await TaskModel.findOne({description});
+    const getTask = await findOne({description});
      if(!getTask){
-        return res.status(404).json({status: HTTPSTATUS.FAIL, data: {title: "This task Can't be found"}})
+        return res.status(404).json({status: FAIL, data: {title: "This task Can't be found"}})
     }
-    res.status(201).json({status: HTTPSTATUS.SUCCESS, data:{getTask}})
+    res.status(201).json({status: SUCCESS, data:{getTask}})
     if(error){
-       return res.status(500).json({status: HTTPSTATUS.ERROR, data: {thistl: error.message}})
+       return res.status(500).json({status: ERROR, data: {thistl: error.message}})
     }
 }
-module.exports = {
+export default {
     getTaskByDescription,
     getTaskByTitle,
     getTaskbyCategory

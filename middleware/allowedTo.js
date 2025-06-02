@@ -1,9 +1,9 @@
 // user roles and admin
-const HTTPSTATUS = require('../utils/httpStatus')
-module.exports = (...role) => {
+import { ERROR } from '../utils/httpStatus'
+export default (...role) => {
     return (req, res, next) => {
         if(!req.decodeToken.role){
-            res.status(402).json({status: HTTPSTATUS.ERROR, data: {title: "non-authorized role"}})
+            res.status(402).json({status: ERROR, data: {title: "non-authorized role"}})
         }
         next()
     }

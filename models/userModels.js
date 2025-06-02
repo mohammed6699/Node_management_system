@@ -1,64 +1,60 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
-const UserRole = require('../utils/UeerRole');
+import { Schema, model } from "mongoose";
+import { isEmail, isStrongPassword } from "validator";
+import { hashSync } from "bcryptjs";
+import { ADMIN, USER } from "../utils/UeerRole";
 
-const UserModel = new mongoose.Schema(
-    {
-        UserName: {
-            type: String,
-            required: true,
-            minlength: 3,
-            maxlength: 50,
-            unique: true
-        },
-        FirstName: {
-            type: String,
-            minlength: 3,
-            maxlength: 30,
-            required: true
-        },
-        LastName: {
-            type: String,
-            minlength: 3,
-            maxlength: 30,
-            required: true
-        },
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-            validate: [validator.isEmail, "Invalid email address"]
-        },
-        password: {
-            type: String,
-            required: true,
-            unique: true,
-            validate: [validator.isStrongPassword, "weak password"]
-        },
-        token: {
-            type: String
-        },
-        role: {
-            type:String,
-            enum: [UserRole.ADMIN, UserRole.USER, UserRole.VISITOR],
-            default: UserRole.USER
-        },
-        avatar: {
-            type: String
-        }
-    },{
-        toJSON: {
-            transform:(doc, ret, options) =>{
-                delete ret.password;
-                delete ret.__v
-            }
-        }
-    }
-)
+const UserModel = new Schema(
+  {
+    UserName: {
+      type: String,
+      required: true,
+      minlength: 3,
+      maxlength: 50,
+      unique: true,
+    },
+    FirstName: {
+      type: String,
+      minlength: 3,
+      maxlength: 30,
+      required: true,
+    },
+    LastName: {
+      type: String,
+      minlength: 3,
+      maxlength: 30,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: [isEmail, "Invalid email address"],
+    },
+    password: {
+      type: String,
+      required: true,
+      unique: true,
+      validate: [isStrongPassword, "weak password"],
+    },
+    role: {
+      type: String,
+      enum: [ADMIN, USER],
+      default: USER,
+    },
+    tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+  },
+  {
+    toJSON: {
+      transform: (doc, ret, options) => {
+        delete ret.password;
+        delete ret.__v;
+      },
+    },
+  }
+);
 // hash the password
-UserModel.pre('save', function(){
-    const hash = bcrypt.hashSync(this.password, 8);
-    this.password = hash
+UserModel.pre("save", function () {
+  const hash = hashSync(this.password, 8);
+  this.password = hash;
 });
-module.exports = mongoose.model('User', UserModel)
+export default model("User", UserModel);
