@@ -1,22 +1,31 @@
-const express = require('express');
-const router = express.Router();
-const verifyToken = require('../middleware/verifyToken')
-const taskContollers = require('../controllers/taskControllers')
-const filterTask = require('../controllers/filterTask')
-const allowedTo = require('../middleware/allowedTo')
-const userRole = require('../utils/UeerRole')
-router.route('/')
-            .get(taskContollers.getAllTAsk)
-            .post(verifyToken,allowedTo(userRole.USER),taskContollers.addTask)
-router.route('/:taskid')
-            .patch(verifyToken,allowedTo(userRole.USER),taskContollers.updateTask)
-            .delete(verifyToken,allowedTo(userRole.USER),taskContollers.deleteTask)
-router.route('/:title')
-            .get(taskContollers.getTaskByTitle)
-router.route('/:category')
-            .get(taskContollers.getTaskbyCategory)
-router.route('/:description')
-            .get(taskContollers.getTaskByDescription)
-router.route('/:filter')
-            .get(filterTask.getFilterTask)
-module.exports = router;
+import verifyToken from "../middleware/verifyToken.js";
+import {
+  deleteTask,
+  updateTask,
+  addTask,
+  getAllTAsk
+} from "../controllers/taskControllers.js";
+import  {
+  getTaskByDescription,
+  getTaskByTitle,
+  getTaskbyCategory,
+} from "../controllers/searchTask.js";
+import getFilterTask from "../controllers/filterTask.js"
+import allowedTo from "../middleware/allowedTo.js";
+import userRole from "../utils/UeerRole.js";
+import express from "express";
+
+const taskRouter = express.Router();
+taskRouter
+  .route("/")
+  .get(getAllTAsk)
+  .post(verifyToken, allowedTo(userRole.USER), addTask);
+taskRouter
+  .route("/:taskid")
+  .patch(verifyToken, allowedTo(userRole.USER), updateTask)
+  .delete(verifyToken, allowedTo(userRole.USER), deleteTask);
+taskRouter.route("/:title").get(getTaskByTitle);
+taskRouter.route("/:category").get(getTaskbyCategory);
+taskRouter.route("/:description").get(getTaskByDescription);
+taskRouter.route("/:filter").get(getFilterTask);
+export default taskRouter;

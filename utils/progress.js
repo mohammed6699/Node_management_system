@@ -1,6 +1,6 @@
 const Progress = {
-    PENDDING: 'PENDDING',
-    COMPLETED: 'COMPLETED',
-    INPROGRESS: 'INPROGRESS'
-}
-module.exports = Progress
+  PENDDING: "PENDDING",
+  COMPLETED: "COMPLETED",
+  INPROGRESS: "INPROGRESS",
+};
+export default Progress;
