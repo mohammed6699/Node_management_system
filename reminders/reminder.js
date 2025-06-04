@@ -27,7 +27,7 @@ const sendAlert = () => {
     console.log(err);
   }
 };
-const remiderTasks = schedule("* * * * * *", sendAlert);
+const remiderTasks = schedule("* * * * *", sendAlert);
 const sendEmail = async (userEmail, taskName) => {
   const mailOptions = {
     from: "your-email@gmail.com",
@@ -42,4 +42,4 @@ const sendEmail = async (userEmail, taskName) => {
     console.error(error);
   }
 };
-//remiderTasks.start();
+// remiderTasks.start();

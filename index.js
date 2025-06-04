@@ -14,10 +14,12 @@ import userRouter from "./rotes/userRotes.js";
 mongoose.connect(URL).then(() => {
   console.log("Data Base Connected");
 });
+app.use(express.json());
 app.use("/api/task", taskRouter);
 /* app.use('/api/task/search', serchTAsk) */
-/* app.use('/api/task', getFilterTask) */
+/* app.use('/api/task/filter', getFilterTask) */
 // login & signUp & getall
+
 app.use("/api/user", userRouter);
 app.listen(port, () => {
   console.log(`App is listing on port ${port}`);

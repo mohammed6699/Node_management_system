@@ -22,14 +22,13 @@ const taskModel = new Schema({
   progress: {
     type: String,
     enum: [progress.COMPLETED, progress.INPROGRESS, progress.PENDDING],
-    default: progress.COMPLETED,
+    default: progress.INPROGRESS,
   },
   category: {
     type: String,
   },
   user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
     required: true,
   },
 });

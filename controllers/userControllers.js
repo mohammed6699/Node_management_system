@@ -19,27 +19,50 @@ const getAllUsers = async (req, res) => {
   }
   res.status(201).json({ status: SUCCESS, data: { user } });
 };
+const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId).select("-password"); // exclude password
+
+    if (!user) {
+      return res.status(404).json({
+        status: ERROR,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      status: SUCCESS,
+      data: { user },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: ERROR,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
 // register a new user
 const registerUser = async (req, res) => {
-  const { UserName, FirstName, LastName, email, password, role, avatar } =
+  const { UserName, FirstName, LastName, email, password} =
     req.body;
   // check if user exists or not
   const user = await User.findOne({ UserName });
-  if (user)
-    [
-      res
-        .status(401)
-        .json({ status: FAIL, data: { title: "THis user is already exists" } }),
-    ];
+  if (user){
+    return res.status(401).json({
+        status: "FAIL",
+        data: { title: "This user already exists" },
+      });
+  }
   const newUser = new User({
     UserName,
     FirstName,
     LastName,
     email,
     password,
-    role,
-    avatar,
   });
+  await User.create(newUser);
   res.status(201).json({ Status: SUCCESS, data: { newUser } });
 };
 // login user
@@ -70,4 +93,5 @@ export  {
   getAllUsers,
   registerUser,
   loginUser,
+  getUserById
 };

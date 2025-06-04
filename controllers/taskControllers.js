@@ -12,9 +12,18 @@ const getAllTAsk = async (req, res) => {
 
 // add task
 const addTask = async (req, res) => {
-  const addTask = new TaskModel(req.body);
-  await addTask.save();
-  res.status(201).json({ status: SUCCESS, data: { addTask } });
+  const {Title, Description, Due_Date, user, category} = req.body;
+  const newTask = new TaskModel({
+    Title,
+    Description,
+    Due_Date,
+    user,
+    category
+  })
+  await TaskModel.create(newTask)
+  // const addTask = new TaskModel(req.body);
+  // await addTask.save();
+  res.status(201).json({ status: SUCCESS, data: { newTask } });
 };
 // update task
 const updateTask = async (req, res) => {
