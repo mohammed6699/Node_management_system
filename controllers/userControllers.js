@@ -47,6 +47,7 @@ const loginUser = async(req, res) => {
         res.status(401).json({status: HTTPSTATUS.ERROR, data: {title: "Authentication Errors"}});
     }
     // generate jwt token
+    // refresh token
     const token = await jwt.sign({email: user.email, _id: user._id, role: user.role}, process.env.JWT_TOKEN, {expiresIn: '10m'})
     user.token = token;
     res.status(201).json({status: HTTPSTATUS.SUCCESS, data: {token}})
