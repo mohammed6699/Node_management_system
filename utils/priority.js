@@ -3,4 +3,4 @@ const Periority = {
     MEDIUM: 'MEDIUM',
     HIGH: 'HIGH'
 }
-module.exports = Periority;
+export default Periority;

@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
-import { isEmail, isStrongPassword } from "validator";
+/* import { isEmail, isStrongPassword } from "validator"; */
 import { hashSync } from "bcryptjs";
-import { ADMIN, USER } from "../utils/UeerRole";
-
+import UserRole from "../utils/UeerRole.js";
+import mongoose from "mongoose";
 const UserModel = new Schema(
   {
     UserName: {
@@ -28,18 +28,18 @@ const UserModel = new Schema(
       type: String,
       required: true,
       unique: true,
-      validate: [isEmail, "Invalid email address"],
+    /*   validate: [isEmail, "Invalid email address"], */
     },
     password: {
       type: String,
       required: true,
       unique: true,
-      validate: [isStrongPassword, "weak password"],
+     /*  validate: [isStrongPassword, "weak password"], */
     },
     role: {
       type: String,
-      enum: [ADMIN, USER],
-      default: USER,
+      enum: [UserRole.ADMIN, UserRole.USER],
+      default: UserRole.USER,
     },
     tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
   },

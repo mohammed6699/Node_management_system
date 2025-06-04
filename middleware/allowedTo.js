@@ -1,5 +1,5 @@
 // user roles and admin
-import { ERROR } from '../utils/httpStatus'
+import { ERROR } from '../utils/http-status.js'
 export default (...role) => {
     return (req, res, next) => {
         if(!req.decodeToken.role){

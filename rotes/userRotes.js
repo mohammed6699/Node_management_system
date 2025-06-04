@@ -1,14 +1,15 @@
-const userControllers = require('../controllers/userControllers')
-const express = require('express')
-const router = express.Router();
-const VerifyUser = require('../middleware/verifyToken')
+import {
+  getAllUsers,
+  registerUser,
+  loginUser,
+} from "../controllers/userControllers.js";
+import express from "express";
+const userRouter = express.Router();
+import VerifyUser from "../middleware/verifyToken.js";
 // get all users
-router.route('/')
-            .gtet(VerifyUser ,userControllers.getAllUsers)
+userRouter.route("/").get(VerifyUser, getAllUsers);
 // login user
-router.route('/login')
-            .post(userControllers.loginUser)
+userRouter.route("/login").post(loginUser);
 // register user (add new user)
-router.route('/register')
-            .post(userControllers.registerUser)
-module.exports = router;
+userRouter.route("/register").post(registerUser);
+export default userRouter;
