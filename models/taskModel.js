@@ -28,7 +28,8 @@ const taskModel = new Schema({
     type: String,
   },
   user: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
 });
