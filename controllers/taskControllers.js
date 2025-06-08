@@ -1,6 +1,7 @@
 import { ERROR, SUCCESS } from "../utils/http-status.js";
 import TaskModel from "../models/taskModel.js";
 import taskModel from "../models/taskModel.js";
+import User from "../models/userModels.js";
 // get all tasks
 const getAllTAsk = async (req, res) => {
   const query = req.query;
@@ -13,31 +14,33 @@ const getAllTAsk = async (req, res) => {
 
 // add task
 const addTask = async (req, res) => {
+  console.log(req.body);
+
+  const { Title, Description, Due_Date, user, category } = req.body;
+
+  // 1. Create the new task
+  const newTask = new TaskModel({
+    Title,
+    Description,
+    Due_Date,
+    user,
+    category,
+  });
+  await taskModel.create(newTask);
+
+  // 2. Push task ID into user's tasks array
+  const updatedUser = await User.findByIdAndUpdate(
+    user,
+    { $push: { tasks: newTask._id } },
+    { new: true }
+  );
+
+  if (!updatedUser) {
+    return res.status(404).json({ status: ERROR, message: "User not found" });
+  }
+
+  res.status(201).json({ status: SUCCESS, data: { newTask } });
   try {
-    const { Title, Description, Due_Date, user, category } = req.body;
-
-    // 1. Create the new task
-    const newTask = new TaskModel({
-      Title,
-      Description,
-      Due_Date,
-      user,
-      category,
-    });
-    await taskModel.create(newTask);
-
-    // 2. Push task ID into user's tasks array
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      user,
-      { $push: { tasks: newTask._id } },
-      { new: true }
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ status: ERROR, message: "User not found" });
-    }
-
-    res.status(201).json({ status: SUCCESS, data: { newTask } });
   } catch (error) {
     res.status(500).json({
       status: ERROR,

@@ -22,7 +22,9 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
-    const user = await User.findById(userId).select("-password"); // exclude password
+    const user = await User.findById(userId)
+      .select("-password")
+      .populate("tasks"); // exclude password
 
     if (!user) {
       return res.status(404).json({
@@ -45,15 +47,14 @@ const getUserById = async (req, res) => {
 };
 // register a new user
 const registerUser = async (req, res) => {
-  const { UserName, FirstName, LastName, email, password} =
-    req.body;
+  const { UserName, FirstName, LastName, email, password } = req.body;
   // check if user exists or not
   const user = await User.findOne({ UserName });
-  if (user){
+  if (user) {
     return res.status(401).json({
-        status: "FAIL",
-        data: { title: "This user already exists" },
-      });
+      status: "FAIL",
+      data: { title: "This user already exists" },
+    });
   }
   const newUser = new User({
     UserName,
@@ -89,9 +90,4 @@ const loginUser = async (req, res) => {
   user.token = token;
   res.status(201).json({ status: SUCCESS, data: { token } });
 };
-export  {
-  getAllUsers,
-  registerUser,
-  loginUser,
-  getUserById
-};
+export { getAllUsers, registerUser, loginUser, getUserById };

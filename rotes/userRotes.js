@@ -2,7 +2,7 @@ import {
   getAllUsers,
   registerUser,
   loginUser,
-  getUserById
+  getUserById,
 } from "../controllers/userControllers.js";
 import express from "express";
 const userRouter = express.Router();
@@ -13,5 +13,5 @@ userRouter.route("/").get(VerifyUser, getAllUsers);
 userRouter.route("/login").post(loginUser);
 // register user (add new user)
 userRouter.route("/register").post(registerUser);
-userRouter.route('/:id').get(getUserById)
+userRouter.route("/:id").get(getUserById);
 export default userRouter;
