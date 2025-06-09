@@ -32,5 +32,11 @@ const taskModel = new Schema({
     ref: "User",
     required: true,
   },
+},{
+  toJSON:{
+    transform:(doc, ret, option) => {
+      delete ret.__v
+    }
+  }
 });
 export default model("Task", taskModel);

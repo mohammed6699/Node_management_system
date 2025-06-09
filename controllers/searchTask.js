@@ -18,8 +18,9 @@ const getTaskbyCategory = async (req, res) => {
 };
 // search task title
 const getTaskByTitle = async (req, res) => {
+  console.log(req.params)
   const { title } = req.params;
-  const getTask = await taskModel.findOne({ title });
+  const getTask = await taskModel.findOne({ Title:title });
   if (!getTask) {
     return res
       .status(404)

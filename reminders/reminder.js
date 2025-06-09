@@ -1,10 +1,11 @@
 // fiter un finished , pendding tasks
-import taskModel from "../models/taskModel.js";
 import { schedule } from "node-cron";
 import taskModel from "../models/taskModel.js";
 import userModels from "../models/userModels.js";
 import express from "express";
 import nodemailer from "nodemailer";
+import dotenv from 'dotenv';
+dotenv.config()
 const transporter = nodemailer.createTransport({
   service: "gmail", // e.g., Gmail, Yahoo, Outlook, or use "host", "port", etc. for SMTP
   auth: {
@@ -42,4 +43,7 @@ const sendEmail = async (userEmail, taskName) => {
     console.error(error);
   }
 };
+export default{
+  sendAlert
+}
 // remiderTasks.start();
