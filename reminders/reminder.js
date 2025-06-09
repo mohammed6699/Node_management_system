@@ -9,8 +9,8 @@ dotenv.config()
 const transporter = nodemailer.createTransport({
   service: "gmail", // e.g., Gmail, Yahoo, Outlook, or use "host", "port", etc. for SMTP
   auth: {
-    user: "your-email@gmail.com",
-    pass: "your-email-password-or-app-password",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
   },
 });
 
@@ -31,7 +31,7 @@ const sendAlert = () => {
 const remiderTasks = schedule("* * * * *", sendAlert);
 const sendEmail = async (userEmail, taskName) => {
   const mailOptions = {
-    from: "your-email@gmail.com",
+    from: process.env.EMAIL_USER,
     to: userEmail,
     subject: "Your Task Reminder",
     text: `Reminder: ${taskName}`,
