@@ -19,7 +19,7 @@ app.use(express.json());
 app.use("/api/task", taskRouter);
 app.use('/api/task/search/title/:title', getTaskByTitle)
 app.use('/api/task/search/category/:category', getTaskbyCategory)
-app.use('/api', reminderRoute)
+//app.use('/api', reminderRoute)
 /* app.use('/api/task/filter', getFilterTask) */
 // login & signUp & getall
 
