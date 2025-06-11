@@ -25,8 +25,8 @@ taskRouter
   .route("/:taskid")
   .patch(verifyToken, allowedTo(userRole.USER), updateTask)
   .delete(verifyToken, allowedTo(userRole.USER), deleteTask);
+taskRouter.route("/filter").get(getFilterTask);
 taskRouter.route("/:title").get(getTaskByTitle);
 taskRouter.route("/:category").get(getTaskbyCategory);
 taskRouter.route("/:description").get(getTaskByDescription);
-taskRouter.route("/:filter").get(getFilterTask);
 export default taskRouter;

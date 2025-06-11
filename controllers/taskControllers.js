@@ -16,7 +16,7 @@ const getAllTAsk = async (req, res) => {
 const addTask = async (req, res) => {
   console.log(req.body);
 
-  const { Title, Description, Due_Date, user, category } = req.body;
+  const { Title, Description, Due_Date, user, category, periority } = req.body;
 
   // 1. Create the new task
   const newTask = new TaskModel({
@@ -25,6 +25,7 @@ const addTask = async (req, res) => {
     Due_Date,
     user,
     category,
+    periority
   });
   await taskModel.create(newTask);
 

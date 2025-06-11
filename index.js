@@ -11,7 +11,7 @@ import taskRouter from "./rotes/taskRoutes.js";
 import userRouter from "./rotes/userRotes.js";
 import {getTaskByDescription,getTaskByTitle,getTaskbyCategory} from './controllers/searchTask.js'
 import reminderRoute from "./rotes/reminderRoute.js"
-/* import getFilterTask from './controllers/filterTask.js' */
+import getFilterTask from './controllers/filterTask.js'
 mongoose.connect(URL).then(() => {
   console.log("Data Base Connected");
 });
@@ -20,7 +20,8 @@ app.use("/api/task", taskRouter);
 app.use('/api/task/search/title/:title', getTaskByTitle)
 app.use('/api/task/search/category/:category', getTaskbyCategory)
 //app.use('/api', reminderRoute)
-/* app.use('/api/task/filter', getFilterTask) */
+// app.use(getFilterTask)
+// taskRouter.route("/api/task/filter").get(getFilterTask);
 // login & signUp & getall
 
 app.use("/api/user", userRouter);

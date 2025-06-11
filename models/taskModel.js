@@ -17,7 +17,6 @@ const taskModel = new Schema({
   periority: {
     type: String,
     enum: [Periority.HIGH, Periority.MEDIUM, Periority.LOW],
-    default: Periority.MEDIUM,
   },
   progress: {
     type: String,
