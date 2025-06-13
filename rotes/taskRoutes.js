@@ -19,8 +19,7 @@ const taskRouter = express.Router();
 taskRouter
   .route("/")
   .get(getAllTAsk)
-  .post(addTask)
-  // .post(verifyToken, allowedTo(userRole.USER), addTask);
+  .post(verifyToken, allowedTo(userRole.USER), addTask);
 taskRouter
   .route("/:taskid")
   .patch(verifyToken, allowedTo(userRole.USER), updateTask)
